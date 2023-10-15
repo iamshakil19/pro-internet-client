@@ -33,14 +33,12 @@ const HeroSection = () => {
           <Image
             className="mx-auto"
             src={HeroImage}
-            height={600}
-            width={600}
             alt=""
           />
         </div>
       </div>
 
-      <div className="bg-black lg:bg-[#EFF6FF] p-8 shadow-xl rounded-lg mt-20 w-full max-w-5xl lg:flex items-center justify-between">
+      <div className="bg-black lg:bg-[#EFF6FF] p-8 shadow-xl rounded-lg mt-20 w-full max-w-6xl lg:flex items-center justify-between">
         <div className="flex flex-col lg:flex-row items-center">
           <input
             type="text"
@@ -54,15 +52,15 @@ const HeroSection = () => {
 
         <div className="hidden lg:flex gap-5">
           <div className="flex items-center">
-            <Image src={comImg} height={100} width={100} alt="" />
+            <Image src={comImg} className="w-32" alt="" />
             <p className="font-medium">TK1,517.00</p>
           </div>
           <div className="flex items-center">
-            <Image src={netImg} height={70} width={70} alt="" />
+            <Image src={netImg} className="w-24" alt="" />
             <p className="font-medium">TK1,659.90</p>
           </div>
           <div className="flex items-center">
-            <Image src={comImg} height={100} width={100} alt="" />
+            <Image src={comImg} className="w-32" alt="" />
             <p className="font-medium">TK1,703.90</p>
           </div>
         </div>
