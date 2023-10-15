@@ -10,6 +10,7 @@ import {
 import { sidebarItems } from "@/constants/sidebarItems";
 import { USER_ROLE } from "@/constants/role";
 import { getUserInfo } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
 
 const { Sider } = Layout;
 
@@ -19,7 +20,7 @@ const SideBar = () => {
   useEffect(() => {
     console.log(isCollapsed);
   }, [isCollapsed]);
-
+  const router = useRouter();
   return (
     <Sider
       breakpoint="lg"
@@ -31,13 +32,15 @@ const SideBar = () => {
       onCollapse={(collapsed, type) => {
         setCollapsed(collapsed);
       }}
-  
       className={`min-h-full bg-white`}
       style={{
-        background: "white"
+        background: "white",
       }}
     >
-      <div className="text-black text-center font-bold text-xl p-3 mt-2 mb-5">
+      <div
+        onClick={() => router.push("/")}
+        className="text-black text-center font-bold text-xl p-3 mt-2 mb-5 cursor-pointer"
+      >
         Pro Internet
       </div>
       <Menu
