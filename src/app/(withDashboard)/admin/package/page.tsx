@@ -11,6 +11,7 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import { useGetAllPackageQuery } from "@/redux/api/package.Api";
 
 const Package = () => {
   const query: Record<string, any> = {};
@@ -35,7 +36,8 @@ const Package = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  // const { data, isLoading } = useAcademicDepartmentsQuery({ ...query });
+  const { data, isLoading } = useGetAllPackageQuery({ ...query });
+console.log(data);
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
@@ -153,7 +155,7 @@ const Package = () => {
 
   return (
     <div>
-      <PITable
+      {/* <PITable
         loading={isLoading}
         columns={columns}
         dataSource={academicDepartments}
@@ -163,7 +165,7 @@ const Package = () => {
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
-      />
+      /> */}
     </div>
   );
 };

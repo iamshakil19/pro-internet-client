@@ -4,6 +4,10 @@ export interface IMeta {
   total: number;
 }
 
+export interface IPackage {
+  
+}
+
 export type ResponseSuccessType = {
   data: any;
   meta?: IMeta;
