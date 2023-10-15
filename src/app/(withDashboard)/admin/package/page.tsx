@@ -37,12 +37,12 @@ const Package = () => {
   }
 
   const { data, isLoading } = useGetAllPackageQuery({ ...query });
-console.log(data);
+  console.log(data);
 
   const deleteHandler = async (id: string) => {
     message.loading("Deleting.....");
     try {
-      //   console.log(data);
+      console.log(data);
       // const res = await deleteAcademicDepartment(id);
       // if (res) {
       //   message.success("Department Deleted successfully");
@@ -65,43 +65,47 @@ console.log(data);
       sorter: true,
     },
     {
-      title: "renewsFee",
+      title: "RenewsFee",
       dataIndex: "renewsFee",
       sorter: true,
+      responsive: ["lg"],
     },
     {
-      title: "storage",
+      title: "Storage",
       dataIndex: "storage",
       sorter: true,
     },
     {
-      title: "bandwidth",
+      title: "Bandwidth",
       dataIndex: "bandwidth",
       sorter: true,
+      responsive: ["lg"],
     },
     {
-      title: "website",
+      title: "Website",
       dataIndex: "website",
       sorter: true,
     },
     {
-      title: "cpu",
+      title: "CPU",
       dataIndex: "cpu",
       sorter: true,
     },
     {
-      title: "physical Memory",
+      title: "Physical Memory",
       dataIndex: "physicalMemory",
       sorter: true,
+      responsive: ["lg"],
     },
     {
-      title: "process",
+      title: "Process",
       dataIndex: "process",
       sorter: true,
     },
     {
       title: "CreatedAt",
       dataIndex: "createdAt",
+      responsive: ["lg"],
       render: function (data: any) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
       },
@@ -111,7 +115,7 @@ console.log(data);
       title: "Action",
       render: function (data: any) {
         return (
-          <>
+          <div className="flex items-center">
             <Link href={`/admin/academic/department/edit/${data?.id}`}>
               <Button
                 style={{
@@ -119,6 +123,7 @@ console.log(data);
                 }}
                 onClick={() => console.log(data)}
                 type="primary"
+                className="bg-blue-500"
               >
                 <EditOutlined />
               </Button>
@@ -130,7 +135,7 @@ console.log(data);
             >
               <DeleteOutlined />
             </Button>
-          </>
+          </div>
         );
       },
     },
@@ -155,17 +160,22 @@ console.log(data);
 
   return (
     <div>
-      {/* <PITable
+      <div className="mb-5 flex justify-end">
+        <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md">
+          Add Package
+        </button>
+      </div>
+      <PITable
         loading={isLoading}
         columns={columns}
-        dataSource={academicDepartments}
+        dataSource={data?.package}
         pageSize={size}
-        totalPages={meta?.total}
+        totalPages={data?.meta?.total}
         showSizeChanger={true}
         onPaginationChange={onPaginationChange}
         onTableChange={onTableChange}
         showPagination={true}
-      /> */}
+      />
     </div>
   );
 };

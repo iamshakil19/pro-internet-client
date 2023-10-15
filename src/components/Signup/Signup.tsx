@@ -15,7 +15,7 @@ type FormValues = {
   password: string;
 };
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const [login] = useLoginMutation();
   const router = useRouter();
 
@@ -24,14 +24,13 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
     console.log(data);
     try {
-      const res = await login({ ...data }).unwrap();
-      console.log(res);
-      if (res?.accessToken) {
-        router.push("/profile");
-        message.success("User logged in successfully!");
-      }
-      storeUserInfo({ accessToken: res?.accessToken });
-      // console.log(res);
+    //   const res = await login({ ...data }).unwrap();
+    //   console.log(res);
+    //   if (res?.accessToken) {
+    //     router.push("/profile");
+    //     message.success("User logged in successfully!");
+    //   }
+    //   storeUserInfo({ accessToken: res?.accessToken });
     } catch (err: any) {
       console.error(err.message);
     }
@@ -48,17 +47,33 @@ const LoginPage = () => {
         <p className="text-5xl font-bold text-white">Pro Internet</p>
       </div>
       <div className="flex-1 p-5 flex flex-col justify-center">
-        <h1 className="text-center text-2xl mb-5 font-bold">
-          Login your account
-        </h1>
+        <h1 className="text-center text-2xl mb-5 font-bold">Create account</h1>
         <div className="mx-auto w-full max-w-sm">
           <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
             <div>
+              <FormInput
+                name="name"
+                type="text"
+                size="large"
+                label="Name"
+                required
+              />
+            </div>
+            <div className="mt-3">
               <FormInput
                 name="email"
                 type="email"
                 size="large"
                 label="Email"
+                required
+              />
+            </div>
+            <div className="mt-3">
+              <FormInput
+                name="phone"
+                type="text"
+                size="large"
+                label="Phone"
                 required
               />
             </div>
@@ -71,20 +86,17 @@ const LoginPage = () => {
                 required
               />
             </div>
-            {/* <Button type="primary" htmlType="submit">
-              Login
-            </Button> */}
             <button
               type="submit"
               className="bg-blue-500 mt-5 w-full py-1.5 text-white font-semibold rounded-md shadow-lg"
             >
-              Login
+              Submit
             </button>
           </Form>
           <p className="mt-5">
-            Need Account ?{" "}
-            <Link className="text-blue-500" href="/signup">
-              Sign up
+            Already have account ?{" "}
+            <Link className="text-blue-500" href="/login">
+              Login
             </Link>
           </p>
         </div>
@@ -93,4 +105,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

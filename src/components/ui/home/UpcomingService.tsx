@@ -11,7 +11,7 @@ const UpcomingService = () => {
       <h2 className="mb-10 text-2xl font-bold">Upcoming Service</h2>
       <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         <div
-          className={`bg-[#EEF2FF] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
+          className={`bg-[#EFF6FF] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
         >
           <Image className="max-w-[70px] mx-auto" src={icon1} alt="" />
 
@@ -32,7 +32,7 @@ const UpcomingService = () => {
           </button>
         </div>
         <div
-          className={`bg-[#F0FDF4] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
+          className={`bg-[#FEFCE8] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
         >
           <Image className="max-w-[70px] mx-auto" src={icon2} alt="" />
 
@@ -53,7 +53,7 @@ const UpcomingService = () => {
           </button>
         </div>
         <div
-          className={`bg-[#FEFCE8] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
+          className={`bg-[#F0FDF4] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
         >
           <Image className="max-w-[70px] mx-auto" src={icon3} alt="" />
 
@@ -74,7 +74,7 @@ const UpcomingService = () => {
           </button>
         </div>
         <div
-          className={`bg-[#EFF6FF] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
+          className={`bg-[#EEF2FF] p-7 max-w-xs rounded-lg shadow-xl mx-auto text-center`}
         >
           <Image className="max-w-[70px] mx-auto" src={icon4} alt="" />
 

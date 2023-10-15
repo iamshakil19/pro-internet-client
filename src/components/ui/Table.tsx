@@ -37,6 +37,7 @@ const PITable = ({
 
   return (
     <Table
+    className="overflow-auto w-full bg-white"
       loading={loading}
       columns={columns}
       dataSource={dataSource}

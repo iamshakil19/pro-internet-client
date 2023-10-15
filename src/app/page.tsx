@@ -1,3 +1,4 @@
+import PublicHeader from "@/components/ui/PublicHeader/PublicHeader";
 import FeatureCard from "@/components/ui/home/AvailableService";
 import EfficientLoad from "@/components/ui/home/EfficientLoad";
 import HeroSection from "@/components/ui/home/Hero";
@@ -9,12 +10,13 @@ import React from "react";
 const HomePage = () => {
   return (
     <div>
+      <PublicHeader />
       <HeroSection />
       <FeatureCard />
       <UpcomingService />
       <EfficientLoad />
-      <Offer/>
-      <Review/>
+      <Offer />
+      <Review />
     </div>
   );
 };

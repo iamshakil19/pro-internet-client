@@ -11,3 +11,21 @@
     position: absolute;
     top: 10px;
 }
+
+:where(.css-dev-only-do-not-override-amq5gd).ant-layout-header {
+    background: white !important;
+    line-height: 34px;
+    border: none;
+}
+
+/* :where(.css-dev-only-do-not-override-amq5gd).ant-layout-header {
+    height: 64px;
+    padding: 0 50px;
+    color: rgba(0, 0, 0, 0.88);
+
+    background: #001529;
+} */
+
+:where(.css-dev-only-do-not-override-amq5gd).ant-menu-horizontal {
+    border: none;
+}
