@@ -39,12 +39,9 @@ const LoginPage = () => {
 
   return (
     <div
-      className="flex"
-      style={{
-        minHeight: "100vh",
-      }}
+      className="flex  min-h-[calc(100vh-64px)]"
     >
-      <div className="bg-blue-500 min-h-screen flex-1 items-center hidden lg:flex justify-center">
+      <div className="bg-blue-500 flex-1 items-center hidden lg:flex justify-center">
         <p className="text-5xl font-bold text-white">Pro Internet</p>
       </div>
       <div className="flex-1 p-5 flex flex-col justify-center">

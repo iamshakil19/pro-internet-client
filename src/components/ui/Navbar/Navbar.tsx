@@ -102,9 +102,12 @@ const Navbar = ({
           </Menu>
 
           <div className="lg:hidden">
-            <Button type="primary" onClick={showDrawer}>
+            <button
+              onClick={showDrawer}
+              className="bg-blue-500 text-white px-4 rounded-md text-base py-1"
+            >
               <MenuFoldOutlined />
-            </Button>
+            </button>
           </div>
           <Drawer
             title="Menu"
