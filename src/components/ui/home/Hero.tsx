@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import HeroImage from "../../../assets/hero.svg";
-import comImg from "../../../assets/com.png";
-import netImg from "../../../assets/net.png";
-import orgImg from "../../../assets/org.png";
+import HeroImage from "@/assets/hero.svg";
+import comImg from "@/assets/com.png";
+import netImg from "@/assets/net.png";
+import orgImg from "@/assets/org.png";
 const HeroSection = () => {
   return (
     <div className="container flex justify-center flex-col lg:items-center p-5 min-h-screen mx-auto">
@@ -30,11 +30,7 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="flex-1 hidden lg:block">
-          <Image
-            className="mx-auto"
-            src={HeroImage}
-            alt=""
-          />
+          <Image className="mx-auto" src={HeroImage} alt="" />
         </div>
       </div>
 

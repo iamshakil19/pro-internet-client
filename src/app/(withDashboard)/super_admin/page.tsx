@@ -1,11 +1,7 @@
-import React from 'react';
+import { redirect } from "next/navigation";
 
 const SuperAdmin = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  return redirect("/profile");
 };
 
 export default SuperAdmin;

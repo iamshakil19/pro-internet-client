@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import freeSSL from "../../../assets/offer/free-ssl.png";
-import bdixTry from "../../../assets/offer/bdix-try.jpg";
-import amd from "../../../assets/offer/amd.jpg";
+import freeSSL from "@/assets/offer/free-ssl.png";
+import bdixTry from "@/assets/offer/bdix-try.jpg";
+import amd from "@/assets/offer/amd.jpg";
 const Offer = () => {
   return (
     <div className="container p-5 mx-auto mt-10">
@@ -25,7 +25,11 @@ const Offer = () => {
           src={bdixTry}
           alt=""
         />
-        <Image className="w-full max-w-sm rounded-lg mx-auto" src={amd} alt="" />
+        <Image
+          className="w-full max-w-sm rounded-lg mx-auto"
+          src={amd}
+          alt=""
+        />
       </div>
     </div>
   );

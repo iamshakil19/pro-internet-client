@@ -1,8 +1,8 @@
 import React from "react";
-import shared from "../../../assets/available-service/shared.png";
-import reseller from "../../../assets/available-service/reseller.png";
-import domain from "../../../assets/available-service/domain.png";
-import cloud from "../../../assets/available-service/managed-cloud.png";
+import shared from "@/assets/available-service/shared.png";
+import reseller from "@/assets/available-service/reseller.png";
+import domain from "@/assets/available-service/domain.png";
+import cloud from "@/assets/available-service/managed-cloud.png";
 import Image from "next/image";
 
 const AvailableService = () => {

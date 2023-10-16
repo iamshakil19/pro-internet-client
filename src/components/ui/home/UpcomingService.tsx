@@ -1,8 +1,8 @@
 import React from "react";
-import icon1 from "../../../assets/upcoming-service/icon1.png";
-import icon2 from "../../../assets/upcoming-service/icon2.png";
-import icon3 from "../../../assets/upcoming-service/icon3.png";
-import icon4 from "../../../assets/upcoming-service/icon4.png";
+import icon1 from "@/assets/upcoming-service/icon1.png";
+import icon2 from "@/assets/upcoming-service/icon2.png";
+import icon3 from "@/assets/upcoming-service/icon3.png";
+import icon4 from "@/assets/upcoming-service/icon4.png";
 import Image from "next/image";
 
 const UpcomingService = () => {

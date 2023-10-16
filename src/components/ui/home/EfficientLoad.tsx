@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import security from "../../../assets/security.svg";
-import clock from "../../../assets/clock.svg";
+import security from "@/assets/security.svg";
+import clock from "@/assets/clock.svg";
 const EfficientLoad = () => {
   return (
     <div className="container p-5 mx-auto mt-10">
