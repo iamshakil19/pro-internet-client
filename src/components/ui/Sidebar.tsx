@@ -17,9 +17,6 @@ const { Sider } = Layout;
 const SideBar = () => {
   const [isCollapsed, setCollapsed] = useState(false);
   const { role } = getUserInfo() as any;
-  useEffect(() => {
-    console.log(isCollapsed);
-  }, [isCollapsed]);
   const router = useRouter();
   return (
     <Sider

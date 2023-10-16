@@ -2,7 +2,11 @@
 import { authKey } from "@/constants/storageKey";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { showSidebarDrawer } from "@/redux/slice/sidebarSlice";
-import { isLoggedIn, removeUserInfo } from "@/services/auth.service";
+import {
+  getUserInfo,
+  isLoggedIn,
+  removeUserInfo,
+} from "@/services/auth.service";
 import { MenuOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { Button, Drawer, Layout, Menu, Typography } from "antd";
 import dynamic from "next/dynamic";
@@ -11,7 +15,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const { Header, Content } = Layout;
-const { Title } = Typography;
 
 const Navbar = ({
   items,
@@ -21,6 +24,7 @@ const Navbar = ({
   hasSider?: boolean;
 }) => {
   const userLoggedIn = isLoggedIn();
+  const { role } = getUserInfo() as any
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -81,14 +85,21 @@ const Navbar = ({
             ))}
 
             {userLoggedIn ? (
-              <button
-                onClick={() => {
-                  logOut();
-                }}
-                className="bg-red-500 px-4 text-white rounded-md font-semibold"
-              >
-                Log Out
-              </button>
+              <>
+                <span className="mr-2">
+                  <Menu.Item>
+                    <Link href={role}>Dashboard</Link>
+                  </Menu.Item>
+                </span>
+                <button
+                  onClick={() => {
+                    logOut();
+                  }}
+                  className="bg-red-500 px-4 text-white rounded-md font-semibold"
+                >
+                  Log Out
+                </button>
+              </>
             ) : (
               <button
                 onClick={() => {

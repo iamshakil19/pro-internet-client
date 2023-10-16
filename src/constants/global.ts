@@ -1,16 +1,12 @@
-export const genderOptions = [
+export const packageCategory = [
   {
-    label: "Male",
-    value: "male",
+    label: "Web Hosting",
+    value: "web hosting",
   },
   {
-    label: "Female",
-    value: "female",
-  },
-  {
-    label: "Others",
-    value: "others",
-  },
+    label: "Cloud",
+    value: "cloud",
+  }
 ];
 export const departmentOptions = [
   {

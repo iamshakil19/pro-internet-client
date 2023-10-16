@@ -19,19 +19,14 @@ const LoginPage = () => {
   const [login] = useLoginMutation();
   const router = useRouter();
 
-  // console.log(isLoggedIn());
-
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
-    console.log(data);
     try {
       const res = await login({ ...data }).unwrap();
-      console.log(res);
       if (res?.accessToken) {
         router.push("/profile");
         message.success("User logged in successfully!");
       }
       storeUserInfo({ accessToken: res?.accessToken });
-      // console.log(res);
     } catch (err: any) {
       console.error(err.message);
     }

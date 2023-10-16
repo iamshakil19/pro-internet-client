@@ -11,16 +11,24 @@ import {
   ReloadOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useGetAllPackageQuery } from "@/redux/api/package.Api";
+import {
+  useDeletePackageMutation,
+  useGetAllPackageQuery,
+} from "@/redux/api/package.Api";
+import PIModal from "@/components/ui/Modal";
+import AddPackage from "@/components/Package/AddPackage";
 
 const Package = () => {
   const query: Record<string, any> = {};
-
+  const [deletePackage] = useDeletePackageMutation();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [addPackageModal, setAddPackageModal] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
 
   query["limit"] = size;
   query["page"] = page;
@@ -37,19 +45,27 @@ const Package = () => {
   }
 
   const { data, isLoading } = useGetAllPackageQuery({ ...query });
-  console.log(data);
 
   const deleteHandler = async (id: string) => {
-    message.loading("Deleting.....");
+    message.loading({
+      key: "deletePackage",
+      content: "Deleting...",
+    });
     try {
-      console.log(data);
-      // const res = await deleteAcademicDepartment(id);
-      // if (res) {
-      //   message.success("Department Deleted successfully");
-      // }
+      const res = await deletePackage(id);
+      if (res) {
+        message.success({
+          key: "deletePackage",
+          content: "Successfully deleted",
+        });
+        setOpen(false);
+        setId("");
+      }
     } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
+      message.error({
+        key: "deletePackage",
+        content: err.message,
+      });
     }
   };
 
@@ -129,7 +145,10 @@ const Package = () => {
               </Button>
             </Link>
             <Button
-              onClick={() => deleteHandler(data?.id)}
+              onClick={() => {
+                setOpen(true);
+                setId(data?.id);
+              }}
               type="primary"
               danger
             >
@@ -142,7 +161,6 @@ const Package = () => {
   ];
 
   const onPaginationChange = (page: number, pageSize: number) => {
-    console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };
@@ -161,7 +179,10 @@ const Package = () => {
   return (
     <div>
       <div className="mb-5 flex justify-end">
-        <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md">
+        <button
+          onClick={() => setAddPackageModal(true)}
+          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
+        >
           Add Package
         </button>
       </div>
@@ -176,6 +197,24 @@ const Package = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+      <PIModal
+        title="Delete Package"
+        isOpen={open}
+        closeModal={() => setOpen(false)}
+        handleOk={() => deleteHandler(id)}
+      >
+        <p className="text-orange-500">Do you want to delete this package ?</p>
+      </PIModal>
+
+      <PIModal
+        showCancelButton={false}
+        showOkButton={false}
+        isOpen={addPackageModal}
+        closeModal={() => setAddPackageModal(false)}
+        title="Add Package"
+      >
+        <AddPackage setAddPackageModal={setAddPackageModal} />
+      </PIModal>
     </div>
   );
 };

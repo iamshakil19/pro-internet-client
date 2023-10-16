@@ -31,7 +31,6 @@ const SignUpPage = () => {
         image,
         role: USER_ROLE.USER,
       }).unwrap();
-      console.log(res);
       if (res) {
         router.push("/login");
         message.success("Successfully registered!");
@@ -58,8 +57,6 @@ const SignUpPage = () => {
         message.error(error.message);
       });
   };
-
-  console.log(image);
 
   return (
     <div className="flex min-h-[calc(100vh-64px)]">
