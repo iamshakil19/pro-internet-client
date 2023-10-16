@@ -2,14 +2,35 @@
 
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/FormInput";
-import { Button } from "antd";
+import { authKey } from "@/constants/storageKey";
+import { useChangePasswordMutation } from "@/redux/api/authApi";
+import { removeUserInfo } from "@/services/auth.service";
+import { Button, Col, Row, message } from "antd";
+import { useRouter } from "next/navigation";
 
 const ResetPassPage = () => {
-  const onSubmit = async (data: any) => {
+  const [changePassword] = useChangePasswordMutation();
+  const router = useRouter();
+  const onSubmit = async (values: any) => {
+    message.loading({
+      key: "changePassword",
+      content: "Updating...",
+    });
     try {
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+      const res = await changePassword(values);
+      if (res) {
+        message.success({
+          key: "changePassword",
+          content: "Successfully updated",
+        });
+        removeUserInfo(authKey);
+        router.push("/login");
+      }
+    } catch (error: any) {
+      message.error({
+        key: "changePassword",
+        content: error.message,
+      });
     }
   };
 
@@ -18,16 +39,51 @@ const ResetPassPage = () => {
       style={{ margin: "100px 0", display: "flex", justifyContent: "center" }}
     >
       <Form submitHandler={onSubmit}>
-        <h3 style={{ marginBottom: "10px" }}>Reset Password</h3>
-        <div style={{ margin: "5px 0" }}>
-          <FormInput name="oldPassword" label="Old password" type="password" />
+        <div
+          style={{
+            padding: "15px",
+            marginBottom: "10px",
+          }}
+        >
+          <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+            <Col
+              className="gutter-row"
+              span={24}
+              style={{ marginBottom: "10px" }}
+            >
+              <FormInput
+                type="password"
+                name="oldPassword"
+                size="large"
+                label="Old Password"
+                placeholder="Enter your old password"
+                required
+              />
+            </Col>
+            <Col
+              className="gutter-row"
+              span={24}
+              style={{ marginBottom: "10px" }}
+            >
+              <FormInput
+                type="password"
+                name="newPassword"
+                size="large"
+                label="New Password"
+                placeholder="Enter your new password"
+                required
+              />
+            </Col>
+          </Row>
         </div>
-        <div style={{ margin: "5px 0" }}>
-          <FormInput name="newPassword" label="New password" type="password" />
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white max-w-xs font-semibold text-lg w-full text-center mx-auto py-1 rounded-md shadow-lg"
+          >
+            Update
+          </button>
         </div>
-        <Button type="primary" htmlType="submit">
-          submit
-        </Button>
       </Form>
     </div>
   );
