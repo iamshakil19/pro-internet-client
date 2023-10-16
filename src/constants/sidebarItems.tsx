@@ -19,11 +19,11 @@ export const sidebarItems = (role: string) => {
       icon: <ProfileOutlined />,
       children: [
         {
-          label: <Link href={`/${role}`}>Profile</Link>,
+          label: <Link href={`/profile`}>Profile</Link>,
           key: `/${role}/profile`,
         },
         {
-          label: <Link href={`/${role}/change-password`}>Change Password</Link>,
+          label: <Link href={`/change-password`}>Change Password</Link>,
           key: `/${role}/change-password`,
         },
       ],
@@ -36,6 +36,36 @@ export const sidebarItems = (role: string) => {
       label: <Link href={`/${role}/package`}>Package</Link>,
       icon: <ContainerOutlined />,
       key: `/${role}/package`,
+    },
+    {
+      label: <Link href={`/${role}/booking`}>Booking</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/booking`,
+    },
+    {
+      label: <Link href={`/${role}/feedback`}>Feedback</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/feedback`,
+    },
+    {
+      label: <Link href={`/${role}/blog`}>Blog</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/blog`,
+    },
+    {
+      label: <Link href={`/${role}/faq`}>FAQ</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/faq`,
+    },
+    {
+      label: <Link href={`/${role}/users`}>Users</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/users`,
+    },
+    {
+      label: <Link href={`/${role}/rating`}>Rating</Link>,
+      icon: <ContainerOutlined />,
+      key: `/${role}/rating`,
     },
   ];
 
@@ -64,16 +94,6 @@ export const sidebarItems = (role: string) => {
       label: <Link href={`/${role}/registration`}>Registration</Link>,
       icon: <ThunderboltOutlined />,
       key: `/${role}/registration`,
-    },
-    {
-      label: <Link href={`/${role}/payment`}>Payment</Link>,
-      icon: <CreditCardOutlined />,
-      key: `/${role}/payment`,
-    },
-    {
-      label: <Link href={`/${role}/academic-report`}>Academic report</Link>,
-      icon: <FileTextOutlined />,
-      key: `/${role}/academic-report`,
     },
   ];
 

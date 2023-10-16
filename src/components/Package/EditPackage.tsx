@@ -9,7 +9,7 @@ import { Col, Row, message } from "antd";
 import React from "react";
 import FormTextArea from "../Forms/FormTextArea";
 import { packageSchema } from "@/schemas/Package";
-import { useUpdatePackageMutation } from "@/redux/api/package.Api";
+import { useUpdatePackageMutation } from "@/redux/api/packageApi";
 import { packageCategory } from "@/constants/global";
 
 const EditPackage = ({ setUpdateData, updateData }: any) => {

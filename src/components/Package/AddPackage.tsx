@@ -9,7 +9,7 @@ import { Col, Row, message } from "antd";
 import React from "react";
 import FormTextArea from "../Forms/FormTextArea";
 import { packageSchema } from "@/schemas/Package";
-import { useCreatePackageMutation } from "@/redux/api/package.Api";
+import { useCreatePackageMutation } from "@/redux/api/packageApi";
 import { packageCategory } from "@/constants/global";
 
 const AddPackage = ({ setAddPackageModal }: any) => {
@@ -20,7 +20,7 @@ const AddPackage = ({ setAddPackageModal }: any) => {
       content: "Creating...",
     });
     try {
-      const res = await createPackage(values)
+      const res = await createPackage(values);
       if (res) {
         message.success({
           key: "createPackage",

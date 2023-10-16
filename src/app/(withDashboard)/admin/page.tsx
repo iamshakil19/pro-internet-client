@@ -1,11 +1,7 @@
-import React from 'react';
+import { redirect } from "next/navigation";
 
 const AdminPage = () => {
-    return (
-        <div>
-            This is admin page
-        </div>
-    );
+  return redirect("/profile");
 };
 
 export default AdminPage;

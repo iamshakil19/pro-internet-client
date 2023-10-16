@@ -14,10 +14,11 @@ import Link from "next/link";
 import {
   useDeletePackageMutation,
   useGetAllPackageQuery,
-} from "@/redux/api/package.Api";
+} from "@/redux/api/packageApi";
 import PIModal from "@/components/ui/Modal";
 import AddPackage from "@/components/Package/AddPackage";
 import EditPackage from "@/components/Package/EditPackage";
+import { useGetMeQuery } from "@/redux/api/authApi";
 
 const Package = () => {
   const query: Record<string, any> = {};

@@ -7,8 +7,8 @@ import {
   isLoggedIn,
   removeUserInfo,
 } from "@/services/auth.service";
-import { MenuOutlined, MenuFoldOutlined } from "@ant-design/icons";
-import { Button, Drawer, Layout, Menu, Typography } from "antd";
+import { MenuFoldOutlined } from "@ant-design/icons";
+import { Button, Drawer, Layout, Menu } from "antd";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const Navbar = ({
   hasSider?: boolean;
 }) => {
   const userLoggedIn = isLoggedIn();
-  const { role } = getUserInfo() as any
+  const { role } = getUserInfo() as any;
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -88,7 +88,7 @@ const Navbar = ({
               <>
                 <span className="mr-2">
                   <Menu.Item>
-                    <Link href={role}>Dashboard</Link>
+                    <Link href="/profile">Dashboard</Link>
                   </Menu.Item>
                 </span>
                 <button
