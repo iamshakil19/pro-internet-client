@@ -1,13 +1,17 @@
+"use client";
 import { Avatar, Button, Dropdown, Layout, MenuProps, Row, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { getUserInfo, removeUserInfo } from "@/services/auth.service";
 import { authKey } from "@/constants/storageKey";
 import { useRouter } from "next/navigation";
+import { useGetMeQuery } from "@/redux/api/authApi";
+import Image from "next/image";
+import avatar from "@/assets/avatar.jpg";
 const { Header: AntHeader } = Layout;
 
 const Header = () => {
   const router = useRouter();
-
+  const { data } = useGetMeQuery({});
   const logOut = () => {
     removeUserInfo(authKey);
     router.push("/login");
@@ -42,13 +46,17 @@ const Header = () => {
             margin: "0px 5px",
           }}
         >
-          {role}
+          <span className="text-base font-medium">{data?.name}</span>
         </p>
         <Dropdown menu={{ items }}>
           <a>
-            <Space wrap size={16}>
-              <Avatar size="large" icon={<UserOutlined />} />
-            </Space>
+            <Image
+              alt=""
+              width={35}
+              height={35}
+              className="rounded-full ml-3"
+              src={data?.image ? data?.image : avatar}
+            />
           </a>
         </Dropdown>
       </Row>

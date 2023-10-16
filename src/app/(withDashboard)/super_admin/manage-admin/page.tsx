@@ -4,7 +4,7 @@ import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
 import { useDebounced } from "@/redux/hooks";
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Button, Input, Select, message } from "antd";
+import { Button, Input, Select, Switch, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -27,6 +27,7 @@ const ManageAdmin = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [role, setRole] = useState<string>("admin");
   const [open, setOpen] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>("");
   const [createAdminModal, setCreateAdminModal] = useState<boolean>(false);
@@ -46,9 +47,9 @@ const ManageAdmin = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  const { data, isLoading } = useGetAllUserQuery({ ...query });
+  const { data, isLoading } = useGetAllUserQuery({ ...query, role });
 
-  const handleChange = async (value: any) => {
+  const handleAccess = async (value: any) => {
     message.loading({
       key: "updateProfile",
       content: "Updating...",
@@ -57,6 +58,30 @@ const ManageAdmin = () => {
       const res = await updateProfile({
         id: value?.id,
         body: { access: value?.access },
+      });
+      if (res) {
+        message.success({
+          key: "updateProfile",
+          content: "Successfully updated",
+        });
+      }
+    } catch (error: any) {
+      message.error({
+        key: "updateProfile",
+        content: error.message,
+      });
+    }
+  };
+
+  const handleRole = async (value: any) => {
+    message.loading({
+      key: "updateProfile",
+      content: "Updating...",
+    });
+    try {
+      const res = await updateProfile({
+        id: value?.id,
+        body: { role: value?.role },
       });
       if (res) {
         message.success({
@@ -135,11 +160,29 @@ const ManageAdmin = () => {
             status={`${!data?.access ? "error" : ""}`}
             style={{ width: 120 }}
             onChange={(e) => {
-              handleChange({ access: e, id: data?.id });
+              handleAccess({ access: e, id: data?.id });
             }}
             options={[
               { value: true, label: "Active" },
               { value: false, label: "Disable" },
+            ]}
+          />
+        );
+      },
+    },
+    {
+      title: "Role",
+      render: function (data: any) {
+        return (
+          <Select
+            defaultValue={data?.role}
+            style={{ width: 120 }}
+            onChange={(e) => {
+              handleRole({ role: e, id: data?.id });
+            }}
+            options={[
+              { value: "user", label: "User" },
+              { value: "admin", label: "Admin" },
             ]}
           />
         );
@@ -195,6 +238,14 @@ const ManageAdmin = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
+  const onChangeSwitch = (checked: boolean) => {
+    if (!checked) {
+      setRole("admin");
+    } else {
+      setRole("user");
+    }
+  };
+
   const resetFilters = () => {
     setSortBy("");
     setSortOrder("");
@@ -203,19 +254,24 @@ const ManageAdmin = () => {
 
   return (
     <div>
-      <div className="mb-5 flex justify-between flex-wrap">
-        <Input
-          type="text"
-          size="large"
-          value={searchTerm}
-          placeholder="Search..."
-          style={{
-            width: "20%",
-          }}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-        />
+      <div className="mb-5 flex justify-between items-center flex-wrap">
+        <div className="flex items-center gap-5">
+          <Input
+            type="text"
+            size="large"
+            value={searchTerm}
+            placeholder="Search..."
+            style={{
+              width: "100%",
+              maxWidth: "300px",
+              margin: "5px 0px",
+            }}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
+          <Switch title="See user list" onChange={onChangeSwitch} />
+        </div>
         <div>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <button

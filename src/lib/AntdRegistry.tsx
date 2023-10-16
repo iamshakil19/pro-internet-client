@@ -13,7 +13,7 @@ const StyledComponentsRegistry = ({ children }: React.PropsWithChildren) => {
       dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }}
     />
   ));
-  return <StyleProvider cache={cache}>{children}</StyleProvider>;
+  return <StyleProvider hashPriority="high" cache={cache}>{children}</StyleProvider>;
 };
 
 export default StyledComponentsRegistry;

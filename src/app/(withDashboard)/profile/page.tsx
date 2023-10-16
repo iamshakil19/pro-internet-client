@@ -6,6 +6,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import PIModal from "@/components/ui/Modal";
 import EditProfile from "@/components/Profile/EditProfile";
+
 const ProfilePage = () => {
   const { data } = useGetMeQuery({});
   const [updateData, setUpdateData] = useState<any>(null);
