@@ -16,7 +16,7 @@ const EditProfile = ({ setUpdateData, updateData }: any) => {
       content: "Updating...",
     });
     try {
-      const res = await updateProfile( values );
+      const res = await updateProfile( { id: updateData?.id, body: values } );
       if (res) {
         message.success({
           key: "updateProfile",

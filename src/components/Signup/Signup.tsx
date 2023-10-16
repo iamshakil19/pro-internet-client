@@ -25,6 +25,10 @@ const SignUpPage = () => {
   const [image, setImage] = useState("");
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    message.loading({
+      key: "signup",
+      content: "Creating...",
+    });
     try {
       const res = await signup({
         ...data,
@@ -32,11 +36,17 @@ const SignUpPage = () => {
         role: USER_ROLE.USER,
       }).unwrap();
       if (res) {
+        message.success({
+          key: "signup",
+          content: "Successfully  registered!",
+        });
         router.push("/login");
-        message.success("Successfully registered!");
       }
     } catch (err: any) {
-      message.error(err.message);
+      message.error({
+        key: "signup",
+        content: err.message,
+      });
     }
   };
 

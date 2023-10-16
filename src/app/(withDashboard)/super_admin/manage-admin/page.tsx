@@ -4,7 +4,7 @@ import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
 import { useDebounced } from "@/redux/hooks";
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Button, Select, message } from "antd";
+import { Button, Input, Select, message } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -14,10 +14,14 @@ import PITable from "@/components/ui/Table";
 import Image from "next/image";
 import avatar from "@/assets/avatar.jpg";
 import PIModal from "@/components/ui/Modal";
+import { useUpdateProfileMutation } from "@/redux/api/authApi";
+import CreateAdmin from "@/components/Admin/CreateAdmin";
+import EditProfile from "@/components/Profile/EditProfile";
 
 const ManageAdmin = () => {
   const query: Record<string, any> = {};
   const [deleteUser] = useDeleteUserMutation();
+  const [updateProfile] = useUpdateProfileMutation();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
@@ -25,6 +29,8 @@ const ManageAdmin = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>("");
+  const [createAdminModal, setCreateAdminModal] = useState<boolean>(false);
+  const [updateData, setUpdateData] = useState<any>(null);
 
   query["limit"] = size;
   query["page"] = page;
@@ -42,8 +48,28 @@ const ManageAdmin = () => {
 
   const { data, isLoading } = useGetAllUserQuery({ ...query });
 
-  const handleChange = (value: string) => {
-    console.log(value);
+  const handleChange = async (value: any) => {
+    message.loading({
+      key: "updateProfile",
+      content: "Updating...",
+    });
+    try {
+      const res = await updateProfile({
+        id: value?.id,
+        body: { access: value?.access },
+      });
+      if (res) {
+        message.success({
+          key: "updateProfile",
+          content: "Successfully updated",
+        });
+      }
+    } catch (error: any) {
+      message.error({
+        key: "updateProfile",
+        content: error.message,
+      });
+    }
   };
 
   const deleteHandler = async (id: string) => {
@@ -102,14 +128,15 @@ const ManageAdmin = () => {
     },
     {
       title: "Access",
-      dataIndex: "access",
-      render: function (access: any) {
+      render: function (data: any) {
         return (
           <Select
-            defaultValue={access}
-            status={`${!access ? "error" : ""}`}
+            defaultValue={data?.access}
+            status={`${!data?.access ? "error" : ""}`}
             style={{ width: 120 }}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange({ access: e, id: data?.id });
+            }}
             options={[
               { value: true, label: "Active" },
               { value: false, label: "Disable" },
@@ -136,7 +163,7 @@ const ManageAdmin = () => {
               style={{
                 margin: "0px 5px",
               }}
-              // onClick={() => setUpdateData(data)}
+              onClick={() => setUpdateData(data)}
               type="primary"
               className="bg-blue-500"
             >
@@ -176,13 +203,37 @@ const ManageAdmin = () => {
 
   return (
     <div>
-      <div className="mb-5 flex justify-end">
-        <button
-          // onClick={() => setAddPackageModal(true)}
-          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
-        >
-          Create Admin
-        </button>
+      <div className="mb-5 flex justify-between flex-wrap">
+        <Input
+          type="text"
+          size="large"
+          value={searchTerm}
+          placeholder="Search..."
+          style={{
+            width: "20%",
+          }}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+        />
+        <div>
+          {(!!sortBy || !!sortOrder || !!searchTerm) && (
+            <button
+              onClick={resetFilters}
+              style={{ margin: "0px 5px" }}
+              title="Reset Filters"
+              className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
+            >
+              <ReloadOutlined />
+            </button>
+          )}
+          <button
+            onClick={() => setCreateAdminModal(true)}
+            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
+          >
+            Create Admin
+          </button>
+        </div>
       </div>
       <PITable
         loading={isLoading}
@@ -203,26 +254,25 @@ const ManageAdmin = () => {
       >
         <p className="text-orange-500">Do you want to delete this admin ?</p>
       </PIModal>
-      {/*
+
       <PIModal
         showCancelButton={false}
         showOkButton={false}
-        isOpen={addPackageModal}
-        closeModal={() => setAddPackageModal(false)}
-        title="Add Package"
+        isOpen={createAdminModal}
+        closeModal={() => setCreateAdminModal(false)}
+        title="Create Admin"
       >
-        <AddPackage setAddPackageModal={setAddPackageModal} />
+        <CreateAdmin setCreateAdminModal={setCreateAdminModal} />
       </PIModal>
-
       <PIModal
         showCancelButton={false}
         showOkButton={false}
         isOpen={updateData}
         closeModal={() => setUpdateData(null)}
-        title="Edit Package"
+        title="Edit Profile"
       >
-        <EditPackage updateData={updateData} setUpdateData={setUpdateData} />
-      </PIModal> */}
+        <EditProfile updateData={updateData} setUpdateData={setUpdateData} />
+      </PIModal>
     </div>
   );
 };
