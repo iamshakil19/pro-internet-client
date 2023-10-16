@@ -17,6 +17,7 @@ import {
 } from "@/redux/api/package.Api";
 import PIModal from "@/components/ui/Modal";
 import AddPackage from "@/components/Package/AddPackage";
+import EditPackage from "@/components/Package/EditPackage";
 
 const Package = () => {
   const query: Record<string, any> = {};
@@ -28,7 +29,8 @@ const Package = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [addPackageModal, setAddPackageModal] = useState<boolean>(false);
-  const [id, setId] = useState<string>("");
+  const [deleteId, setDeleteId] = useState<string>("");
+  const [updateData, setUpdateData] = useState<any>(null);
 
   query["limit"] = size;
   query["page"] = page;
@@ -59,7 +61,7 @@ const Package = () => {
           content: "Successfully deleted",
         });
         setOpen(false);
-        setId("");
+        setDeleteId("");
       }
     } catch (err: any) {
       message.error({
@@ -73,6 +75,11 @@ const Package = () => {
     {
       title: "Name",
       dataIndex: "name",
+      sorter: true,
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
       sorter: true,
     },
     {
@@ -132,22 +139,20 @@ const Package = () => {
       render: function (data: any) {
         return (
           <div className="flex items-center">
-            <Link href={`/admin/academic/department/edit/${data?.id}`}>
-              <Button
-                style={{
-                  margin: "0px 5px",
-                }}
-                onClick={() => console.log(data)}
-                type="primary"
-                className="bg-blue-500"
-              >
-                <EditOutlined />
-              </Button>
-            </Link>
+            <Button
+              style={{
+                margin: "0px 5px",
+              }}
+              onClick={() => setUpdateData(data)}
+              type="primary"
+              className="bg-blue-500"
+            >
+              <EditOutlined />
+            </Button>
             <Button
               onClick={() => {
                 setOpen(true);
-                setId(data?.id);
+                setDeleteId(data?.id);
               }}
               type="primary"
               danger
@@ -201,7 +206,7 @@ const Package = () => {
         title="Delete Package"
         isOpen={open}
         closeModal={() => setOpen(false)}
-        handleOk={() => deleteHandler(id)}
+        handleOk={() => deleteHandler(deleteId)}
       >
         <p className="text-orange-500">Do you want to delete this package ?</p>
       </PIModal>
@@ -214,6 +219,16 @@ const Package = () => {
         title="Add Package"
       >
         <AddPackage setAddPackageModal={setAddPackageModal} />
+      </PIModal>
+
+      <PIModal
+        showCancelButton={false}
+        showOkButton={false}
+        isOpen={updateData}
+        closeModal={() => setUpdateData(null)}
+        title="Edit Package"
+      >
+        <EditPackage updateData={updateData} setUpdateData={setUpdateData} />
       </PIModal>
     </div>
   );

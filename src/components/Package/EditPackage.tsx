@@ -9,28 +9,29 @@ import { Col, Row, message } from "antd";
 import React from "react";
 import FormTextArea from "../Forms/FormTextArea";
 import { packageSchema } from "@/schemas/Package";
-import { useCreatePackageMutation } from "@/redux/api/package.Api";
+import { useUpdatePackageMutation } from "@/redux/api/package.Api";
 import { packageCategory } from "@/constants/global";
 
-const AddPackage = ({ setAddPackageModal }: any) => {
-  const [createPackage] = useCreatePackageMutation();
+const EditPackage = ({ setUpdateData, updateData }: any) => {
+  const [updatePackage] = useUpdatePackageMutation();
   const onSubmit = async (values: any) => {
+    const { id, ...data } = values;
     message.loading({
-      key: "createPackage",
-      content: "Creating...",
+      key: "updatePackage",
+      content: "Updating...",
     });
     try {
-      const res = await createPackage(values)
+      const res = await updatePackage({ id, body: data });
       if (res) {
         message.success({
-          key: "createPackage",
-          content: "Successfully created",
+          key: "updatePackage",
+          content: "Successfully updated",
         });
-        setAddPackageModal(false);
+        setUpdateData(null);
       }
     } catch (error: any) {
       message.error({
-        key: "createPackage",
+        key: "updatePackage",
         content: error.message,
       });
     }
@@ -39,7 +40,11 @@ const AddPackage = ({ setAddPackageModal }: any) => {
   return (
     <div>
       <div>
-        <Form submitHandler={onSubmit} resolver={yupResolver(packageSchema)}>
+        <Form
+          submitHandler={onSubmit}
+          defaultValues={updateData}
+          resolver={yupResolver(packageSchema)}
+        >
           <div
             style={{
               padding: "15px",
@@ -206,7 +211,7 @@ const AddPackage = ({ setAddPackageModal }: any) => {
             type="submit"
             className="bg-blue-500 text-white font-semibold text-lg w-full text-center mx-auto py-1 rounded-md shadow-lg"
           >
-            Create
+            Update
           </button>
         </Form>
       </div>
@@ -214,4 +219,4 @@ const AddPackage = ({ setAddPackageModal }: any) => {
   );
 };
 
-export default AddPackage;
+export default EditPackage;
