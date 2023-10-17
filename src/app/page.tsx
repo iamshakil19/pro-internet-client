@@ -3,6 +3,7 @@ import PublicHeader from "@/components/ui/PublicHeader/PublicHeader";
 import FeatureCard from "@/components/ui/home/AvailableService";
 import EfficientLoad from "@/components/ui/home/EfficientLoad";
 import HeroSection from "@/components/ui/home/Hero";
+import MeetPartner from "@/components/ui/home/MeetPartner";
 import Offer from "@/components/ui/home/Offer";
 import Review from "@/components/ui/home/Review";
 import UpcomingService from "@/components/ui/home/UpcomingService";
@@ -18,6 +19,7 @@ const HomePage = () => {
       <EfficientLoad />
       <Offer />
       <Review />
+      <MeetPartner />
       <Footer />
     </div>
   );
