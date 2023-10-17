@@ -6,23 +6,24 @@ import { Col, Row, message } from "antd";
 import FormTextArea from "../Forms/FormTextArea";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { feedbackSchema } from "@/schemas/Feedback";
+import { useCreateFeedbackMutation } from "@/redux/api/feedbackApi";
 
 const AddFeedback = ({ setAddFeedbackModal }: any) => {
-  // const [createFeedback] = useCreatePackageMutation();
+  const [createFeedback] = useCreateFeedbackMutation();
   const onSubmit = async (values: any) => {
     message.loading({
       key: "createFeedback",
       content: "Creating...",
     });
     try {
-      // const res = await createFeedback(values);
-      // if (res) {
-      //   message.success({
-      //     key: "createFeedback",
-      //     content: "Successfully created",
-      //   });
-      //   setAddFeedbackModal(false);
-      // }
+      const res = await createFeedback(values);
+      if (res) {
+        message.success({
+          key: "createFeedback",
+          content: "Successfully created",
+        });
+        setAddFeedbackModal(false);
+      }
     } catch (error: any) {
       message.error({
         key: "createFeedback",
