@@ -86,14 +86,9 @@ export const sidebarItems = (role: string) => {
       key: `/${role}/booking-list`,
     },
     {
-      label: <Link href={`/${role}/courses/schedule`}>Course schedules</Link>,
+      label: <Link href={`/${role}/feedback`}>Feedback</Link>,
       icon: <ScheduleOutlined />,
-      key: `/${role}/courses/schedule`,
-    },
-    {
-      label: <Link href={`/${role}/registration`}>Registration</Link>,
-      icon: <ThunderboltOutlined />,
-      key: `/${role}/registration`,
+      key: `/${role}/feedback`,
     },
   ];
 

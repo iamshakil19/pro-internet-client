@@ -6,6 +6,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import PIModal from "@/components/ui/Modal";
 import EditProfile from "@/components/Profile/EditProfile";
+import avatar from "@/assets/avatar.jpg";
 
 const ProfilePage = () => {
   const { data } = useGetMeQuery({});
@@ -23,7 +24,7 @@ const ProfilePage = () => {
       <div>
         <div>
           <Image
-            src={data?.image}
+            src={data?.image ? data?.image : avatar}
             alt=""
             width={100}
             height={100}

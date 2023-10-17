@@ -7,8 +7,8 @@ import {
   isLoggedIn,
   removeUserInfo,
 } from "@/services/auth.service";
-import { MenuFoldOutlined } from "@ant-design/icons";
-import { Button, Drawer, Layout, Menu } from "antd";
+import { MenuFoldOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { Avatar, Badge, Button, Drawer, Layout, Menu } from "antd";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -24,7 +24,8 @@ const Navbar = ({
   hasSider?: boolean;
 }) => {
   const userLoggedIn = isLoggedIn();
-  const { role } = getUserInfo() as any;
+  const {email} = getUserInfo() as any;
+  
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -83,6 +84,11 @@ const Navbar = ({
                 <Link href={item.href}>{item.label}</Link>
               </Menu.Item>
             ))}
+            <span className="mx-2 cursor-pointer">
+              <Badge count={1}>
+                <ShoppingCartOutlined className="text-xl" />
+              </Badge>
+            </span>
 
             {userLoggedIn ? (
               <>
@@ -105,7 +111,7 @@ const Navbar = ({
                 onClick={() => {
                   router.push("/login");
                 }}
-                className="bg-blue-500 px-4 text-white rounded-md font-semibold"
+                className="bg-blue-500 px-4 text-white rounded-md font-semibold ml-3"
               >
                 Login
               </button>
