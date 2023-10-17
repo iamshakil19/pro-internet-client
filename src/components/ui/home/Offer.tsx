@@ -8,8 +8,8 @@ const Offer = () => {
     <div className="container p-5 mx-auto mt-10">
       <div className="mb-10">
         <span className="font-semibold text-blue-500">PROMOTION</span>
-        <h3 className="text-3xl font-bold">Offer & Promos</h3>
-        <p className="text-lg font-medium">
+        <h3 className="text-4xl font-bold">Offer & Promos</h3>
+        <p className="text-lg font-medium mt-2">
           Hand-picked coupons, promo codes, discounts, and deals.
         </p>
       </div>

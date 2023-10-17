@@ -1,6 +1,7 @@
 import Providers from "@/lib/Providers";
 import "./globals.css";
 import type { Metadata } from "next";
+import Footer from "@/components/ui/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Pro Internet",
@@ -13,10 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Providers>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </Providers>
+    <html lang="en">
+      <body>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
   );
 }

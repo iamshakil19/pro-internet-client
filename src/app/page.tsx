@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/Footer/Footer";
 import PublicHeader from "@/components/ui/PublicHeader/PublicHeader";
 import FeatureCard from "@/components/ui/home/AvailableService";
 import EfficientLoad from "@/components/ui/home/EfficientLoad";
@@ -17,6 +18,7 @@ const HomePage = () => {
       <EfficientLoad />
       <Offer />
       <Review />
+      <Footer />
     </div>
   );
 };
