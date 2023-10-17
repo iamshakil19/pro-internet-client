@@ -1,5 +1,6 @@
 import Footer from "@/components/ui/Footer/Footer";
 import PublicHeader from "@/components/ui/PublicHeader/PublicHeader";
+import AnyQuestion from "@/components/ui/home/AnyQuestion";
 import FeatureCard from "@/components/ui/home/AvailableService";
 import EfficientLoad from "@/components/ui/home/EfficientLoad";
 import HeroSection from "@/components/ui/home/Hero";
@@ -20,6 +21,7 @@ const HomePage = () => {
       <Offer />
       <Review />
       <MeetPartner />
+      <AnyQuestion />
       <Footer />
     </div>
   );
