@@ -53,7 +53,7 @@ export const blogApi = baseApi.injectEndpoints({
                 url: `${BLOG_URL}/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: [tagTypes.package],
+            invalidatesTags: [tagTypes.blog],
         }),
     })
 })
