@@ -4,40 +4,23 @@ import React from "react";
 import type { CollapseProps } from "antd";
 import { Collapse, theme } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
-import type { CSSProperties } from "react";
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
-  panelStyle
-) => [
-  {
-    key: "1",
-    label: "This is panel header 1",
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-  {
-    key: "2",
-    label: "This is panel header 2",
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-  {
-    key: "3",
-    label: "This is panel header 3",
-    children: <p>{text}</p>,
-    style: panelStyle,
-  },
-];
+import type { CSSProperties } from "react"
+import { useGetAllFaqQuery } from "@/redux/api/faqApi";
 
 const FaqPage = () => {
+  const { data } = useGetAllFaqQuery(undefined);
+  const { faq } = data || {};
+  const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
+    panelStyle
+  ) => {
+    return faq?.map((item: any) => ({
+      key: item.id,
+      label: item.title,
+      children: <p>{item.desc}</p>,
+      style: panelStyle,
+    }));
+  };
   const { token } = theme.useToken();
-
   const panelStyle: React.CSSProperties = {
     marginBottom: 25,
     background: "#EEF2FF",
