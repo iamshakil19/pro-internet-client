@@ -180,6 +180,7 @@ const BookingList = () => {
         return (
           <Select
             defaultValue={data?.status}
+            disabled={data?.status === 'cancel'}
             status={`${
               data?.status === "cancel"
                 ? "error"

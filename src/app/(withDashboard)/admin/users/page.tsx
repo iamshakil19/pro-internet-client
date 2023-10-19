@@ -25,7 +25,6 @@ const UserPage = () => {
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [role, setRole] = useState<string>("admin");
   const [updateData, setUpdateData] = useState<any>(null);
 
   query["limit"] = size;
@@ -42,7 +41,7 @@ const UserPage = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  const { data, isLoading } = useGetAllUserQuery({ ...query, role });
+  const { data, isLoading } = useGetAllUserQuery({ ...query });
 
   const handleAccess = async (value: any) => {
     message.loading({
@@ -142,24 +141,24 @@ const UserPage = () => {
         );
       },
     },
-    {
-      title: "Role",
-      render: function (data: any) {
-        return (
-          <Select
-            defaultValue={data?.role}
-            style={{ width: 120 }}
-            onChange={(e) => {
-              handleRole({ role: e, id: data?.id });
-            }}
-            options={[
-              { value: "user", label: "User" },
-              { value: "admin", label: "Admin" },
-            ]}
-          />
-        );
-      },
-    },
+    // {
+    //   title: "Role",
+    //   render: function (data: any) {
+    //     return (
+    //       <Select
+    //         defaultValue={data?.role}
+    //         style={{ width: 120 }}
+    //         onChange={(e) => {
+    //           handleRole({ role: e, id: data?.id });
+    //         }}
+    //         options={[
+    //           { value: "user", label: "User" },
+    //           { value: "admin", label: "Admin" },
+    //         ]}
+    //       />
+    //     );
+    //   },
+    // },
     {
       title: "CreatedAt",
       dataIndex: "createdAt",
@@ -210,14 +209,6 @@ const UserPage = () => {
     setSortOrder(order === "ascend" ? "asc" : "desc");
   };
 
-  const onChangeSwitch = (checked: boolean) => {
-    if (!checked) {
-      setRole("admin");
-    } else {
-      setRole("user");
-    }
-  };
-
   const resetFilters = () => {
     setSortBy("");
     setSortOrder("");
@@ -243,7 +234,7 @@ const UserPage = () => {
               setSearchTerm(e.target.value);
             }}
           />
-          <Switch title="See user list" onChange={onChangeSwitch} />
+          {/* <Switch title="See user list" onChange={onChangeSwitch} /> */}
         </div>
         <div>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (

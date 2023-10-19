@@ -4,6 +4,7 @@ import React from "react";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "@/redux/hooks";
 import { addToCart } from "@/redux/slice/bookingSlice";
+import Link from "next/link";
 
 const PackageCard = ({ pack }: any) => {
   const {
@@ -82,6 +83,13 @@ const PackageCard = ({ pack }: any) => {
         </div>
       </div>
       <div className="p-5">
+        <Link href={`/package/details/${id}`}>
+          <button
+            className="w-full bg-blue-500 text-white font-semibold text-lg py-1 rounded-md shadow-lg mt-3"
+          >
+            Details
+          </button>
+        </Link>
         <button
           onClick={handleAddToCart}
           className="w-full bg-black text-white font-semibold text-lg py-1 rounded-md shadow-lg mt-3"

@@ -1,11 +1,15 @@
+"use client";
+
 import React from "react";
 import shared from "@/assets/available-service/shared.png";
 import reseller from "@/assets/available-service/reseller.png";
 import domain from "@/assets/available-service/domain.png";
 import cloud from "@/assets/available-service/managed-cloud.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AvailableService = () => {
+  const router = useRouter();
   return (
     <div className="container p-5 mx-auto">
       <h2 className="mb-10 text-2xl font-bold">Available Service</h2>
@@ -26,6 +30,7 @@ const AvailableService = () => {
           </p>
 
           <button
+            onClick={() => router.push("/package")}
             className={`bg-gradient-to-r from-[#6265F0] to-[#4339CA] w-full py-2.5 mt-4 rounded-md text-white font-bold`}
           >
             Get Started
@@ -47,6 +52,7 @@ const AvailableService = () => {
           </p>
 
           <button
+            onClick={() => router.push("/package")}
             className={`bg-gradient-to-r from-[#22C25D] to-[#17843F] w-full py-2.5 mt-4 rounded-md text-white font-bold`}
           >
             Get Started
@@ -68,6 +74,7 @@ const AvailableService = () => {
           </p>
 
           <button
+            onClick={() => router.push("/package")}
             className={`bg-gradient-to-r from-[#F8CA15] to-[#CD8C07] w-full py-2.5 mt-4 rounded-md text-white font-bold`}
           >
             Get Started
@@ -89,6 +96,7 @@ const AvailableService = () => {
           </p>
 
           <button
+            onClick={() => router.push("/package")}
             className={`bg-gradient-to-r from-[#3A80F4] to-[#1F51D9] w-full py-2.5 mt-4 rounded-md text-white font-bold`}
           >
             Get Started

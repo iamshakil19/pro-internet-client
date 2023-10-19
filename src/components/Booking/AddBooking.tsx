@@ -11,13 +11,37 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import dayjs from "dayjs";
 import { useCreateBookingMutation } from "@/redux/api/bookingApi";
 import { clearCart } from "@/redux/slice/bookingSlice";
+import { getUserInfo, isLoggedIn } from "@/services/auth.service";
+import { useRouter } from "next/navigation";
 
 const AddBooking = ({ setBookingModalOpen }: any) => {
   const dispatch = useAppDispatch();
   const [createBooking] = useCreateBookingMutation();
   const { booking } = useAppSelector((state) => state.bookings);
   const packageIdArray = booking?.map((pack: any) => pack.id);
+  const userLoggedIn = isLoggedIn();
+  const router = useRouter();
+  const { email, role } = getUserInfo() as any;
   const onSubmit = async (values: any) => {
+    if (!userLoggedIn) {
+      message.error({
+        key: "createBooking",
+        content: "Login first",
+      });
+      router.push("/login");
+      return;
+    }
+
+    if (role !== "user") {
+      message.error({
+        key: "createBooking",
+        content: "Only for user",
+      });
+      setBookingModalOpen(false);
+      dispatch(clearCart({}));
+      return;
+    }
+
     const tempObject = { ...values };
     tempObject["startDate"] = dayjs(tempObject["startDate"]).toISOString();
 

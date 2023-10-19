@@ -8,7 +8,6 @@ const BlogDetails = ({ params }: any) => {
   console.log(params);
 
   const { data } = useGetSingleBlogQuery(params.id);
-  console.log(data);
 
   return (
     <div className="container mx-auto p-5 mt-10">

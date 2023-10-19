@@ -1,35 +1,31 @@
 "use client";
 
-import { Button, Input, message } from "antd";
+import AddBlog from "@/components/Blog/AddBlog";
+import PIModal from "@/components/ui/Modal";
 import PITable from "@/components/ui/Table";
+import { useDeleteBlogMutation, useGetAllBlogQuery } from "@/redux/api/blogApi";
 import { useDebounced } from "@/redux/hooks";
-import { useState } from "react";
+import { Button, message } from "antd";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import {
   DeleteOutlined,
   EditOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
-import {
-  useDeletePackageMutation,
-  useGetAllPackageQuery,
-} from "@/redux/api/packageApi";
-import PIModal from "@/components/ui/Modal";
-import AddPackage from "@/components/Package/AddPackage";
-import EditPackage from "@/components/Package/EditPackage";
-import { useGetMeQuery } from "@/redux/api/authApi";
-
-const Package = () => {
+import Image from "next/image";
+import avatar from "@/assets/avatar.jpg";
+import EditBlog from "@/components/Blog/EditBlog";
+const BlogPage = () => {
   const query: Record<string, any> = {};
-  const [deletePackage] = useDeletePackageMutation();
+  const [deleteBlog] = useDeleteBlogMutation();
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
-  const [addPackageModal, setAddPackageModal] = useState<boolean>(false);
+  const [addBlogModal, setAddBlogModal] = useState<boolean>(false);
   const [deleteId, setDeleteId] = useState<string>("");
   const [updateData, setUpdateData] = useState<any>(null);
 
@@ -47,18 +43,18 @@ const Package = () => {
     query["searchTerm"] = debouncedTerm;
   }
 
-  const { data, isLoading } = useGetAllPackageQuery({ ...query });
+  const { data, isLoading } = useGetAllBlogQuery({ ...query });
 
   const deleteHandler = async (id: string) => {
     message.loading({
-      key: "deletePackage",
+      key: "deleteBlog",
       content: "Deleting...",
     });
     try {
-      const res = await deletePackage(id);
+      const res = await deleteBlog(id);
       if (res) {
         message.success({
-          key: "deletePackage",
+          key: "deleteBlog",
           content: "Successfully deleted",
         });
         setOpen(false);
@@ -66,7 +62,7 @@ const Package = () => {
       }
     } catch (err: any) {
       message.error({
-        key: "deletePackage",
+        key: "deleteBlog",
         content: err.message,
       });
     }
@@ -74,57 +70,30 @@ const Package = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      sorter: true,
+      title: "Avatar",
+      dataIndex: "image",
+      sorter: false,
+      render: (data: any) => (
+        <Image
+          src={data ? data : avatar}
+          width={50}
+          height={50}
+          style={{ borderRadius: "50%" }}
+          alt=""
+        />
+      ),
     },
     {
-      title: "Category",
-      dataIndex: "category",
+      title: "Title",
+      dataIndex: "title",
       sorter: true,
+      render: (data: any) => <p style={{ maxWidth: "400px" }}> {data} </p>,
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      sorter: true,
-    },
-    {
-      title: "RenewsFee",
-      dataIndex: "renewsFee",
-      sorter: true,
-      responsive: ["lg"],
-    },
-    {
-      title: "Storage",
-      dataIndex: "storage",
-      sorter: true,
-    },
-    {
-      title: "Bandwidth",
-      dataIndex: "bandwidth",
-      sorter: true,
-      responsive: ["lg"],
-    },
-    {
-      title: "Website",
-      dataIndex: "website",
-      sorter: true,
-    },
-    {
-      title: "CPU",
-      dataIndex: "cpu",
-      sorter: true,
-    },
-    {
-      title: "Physical Memory",
-      dataIndex: "physicalMemory",
-      sorter: true,
-      responsive: ["lg"],
-    },
-    {
-      title: "Process",
-      dataIndex: "process",
-      sorter: true,
+      title: "Description",
+      dataIndex: "desc",
+      // sorter: false,
+      render: (data: any) => <p style={{ maxWidth: "600px" }}> {data} </p>,
     },
     {
       title: "CreatedAt",
@@ -184,36 +153,19 @@ const Package = () => {
 
   return (
     <div>
-      <div className="mb-5 flex justify-between">
-        <div className="">
-          <Input
-            type="text"
-            size="large"
-            value={searchTerm}
-            placeholder="Search..."
-            style={{
-              width: "100%",
-              maxWidth: "300px",
-              margin: "5px 0px",
-            }}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <button
-            onClick={() => setAddPackageModal(true)}
-            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
-          >
-            Add Package
-          </button>
-        </div>
+      <div className="mb-5 flex justify-end">
+        <button
+          onClick={() => setAddBlogModal(true)}
+          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-md"
+        >
+          Add Blog
+        </button>
       </div>
+
       <PITable
         loading={isLoading}
         columns={columns}
-        dataSource={data?.package}
+        dataSource={data?.blog}
         pageSize={size}
         totalPages={data?.meta?.total}
         showSizeChanger={true}
@@ -221,23 +173,24 @@ const Package = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
+
       <PIModal
-        title="Delete Package"
+        title="Delete Blog"
         isOpen={open}
         closeModal={() => setOpen(false)}
         handleOk={() => deleteHandler(deleteId)}
       >
-        <p className="text-orange-500">Do you want to delete this package ?</p>
+        <p className="text-orange-500">Do you want to delete this blog ?</p>
       </PIModal>
 
       <PIModal
         showCancelButton={false}
         showOkButton={false}
-        isOpen={addPackageModal}
-        closeModal={() => setAddPackageModal(false)}
-        title="Add Package"
+        isOpen={addBlogModal}
+        closeModal={() => setAddBlogModal(false)}
+        title="Add Blog"
       >
-        <AddPackage setAddPackageModal={setAddPackageModal} />
+        <AddBlog setAddBlogModal={setAddBlogModal} />
       </PIModal>
 
       <PIModal
@@ -245,12 +198,12 @@ const Package = () => {
         showOkButton={false}
         isOpen={updateData}
         closeModal={() => setUpdateData(null)}
-        title="Edit Package"
+        title="Edit Blog"
       >
-        <EditPackage updateData={updateData} setUpdateData={setUpdateData} />
+        <EditBlog updateData={updateData} setUpdateData={setUpdateData} />
       </PIModal>
     </div>
   );
 };
 
-export default Package;
+export default BlogPage;

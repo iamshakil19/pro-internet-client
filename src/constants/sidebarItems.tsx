@@ -8,6 +8,11 @@ import {
   FileTextOutlined,
   ContainerOutlined,
   BookOutlined,
+  UserOutlined,
+  DeploymentUnitOutlined,
+  SoundOutlined,
+  QuestionCircleOutlined,
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { USER_ROLE } from "./role";
@@ -16,7 +21,7 @@ export const sidebarItems = (role: string) => {
     {
       label: "Profile",
       key: "profile",
-      icon: <ProfileOutlined />,
+      icon: <UserOutlined />,
       children: [
         {
           label: <Link href={`/profile`}>Profile</Link>,
@@ -34,43 +39,63 @@ export const sidebarItems = (role: string) => {
     ...defaultSidebarItems,
     {
       label: <Link href={`/${role}/package`}>Package</Link>,
-      icon: <ContainerOutlined />,
+      icon: <DeploymentUnitOutlined />,
       key: `/${role}/package`,
     },
     {
       label: <Link href={`/${role}/booking`}>Booking</Link>,
-      icon: <ContainerOutlined />,
+      icon: <BookOutlined />,
       key: `/${role}/booking`,
     },
     {
       label: <Link href={`/${role}/feedback`}>Feedback</Link>,
-      icon: <ContainerOutlined />,
+      icon: <FileTextOutlined />,
       key: `/${role}/feedback`,
     },
     {
       label: <Link href={`/${role}/blog`}>Blog</Link>,
-      icon: <ContainerOutlined />,
+      icon: <SoundOutlined />,
       key: `/${role}/blog`,
     },
     {
       label: <Link href={`/${role}/faq`}>FAQ</Link>,
-      icon: <ContainerOutlined />,
+      icon: <QuestionCircleOutlined />,
       key: `/${role}/faq`,
     },
     {
       label: <Link href={`/${role}/users`}>Users</Link>,
-      icon: <ContainerOutlined />,
+      icon: <UsergroupAddOutlined />,
       key: `/${role}/users`,
-    },
-    {
-      label: <Link href={`/${role}/rating`}>Rating</Link>,
-      icon: <ContainerOutlined />,
-      key: `/${role}/rating`,
     },
   ];
 
   const superAdminSidebarItems: MenuProps["items"] = [
     ...defaultSidebarItems,
+    {
+      label: <Link href={`/${role}/package`}>Package</Link>,
+      icon: <DeploymentUnitOutlined />,
+      key: `/${role}/package`,
+    },
+    {
+      label: <Link href={`/${role}/booking`}>Booking</Link>,
+      icon: <BookOutlined />,
+      key: `/${role}/booking`,
+    },
+    {
+      label: <Link href={`/${role}/feedback`}>Feedback</Link>,
+      icon: <FileTextOutlined />,
+      key: `/${role}/feedback`,
+    },
+    {
+      label: <Link href={`/${role}/blog`}>Blog</Link>,
+      icon: <SoundOutlined />,
+      key: `/${role}/blog`,
+    },
+    {
+      label: <Link href={`/${role}/faq`}>FAQ</Link>,
+      icon: <QuestionCircleOutlined />,
+      key: `/${role}/faq`,
+    },
     {
       label: <Link href={`/${role}/manage-admin`}>Manage Admin</Link>,
       icon: <TableOutlined />,

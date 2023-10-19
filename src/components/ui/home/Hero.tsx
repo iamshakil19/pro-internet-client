@@ -1,10 +1,13 @@
+'use client'
 import Image from "next/image";
 import React from "react";
 import HeroImage from "@/assets/hero.svg";
 import comImg from "@/assets/com.png";
 import netImg from "@/assets/net.png";
 import orgImg from "@/assets/org.png";
+import { useRouter } from "next/navigation";
 const HeroSection = () => {
+  const router = useRouter();
   return (
     <div className="container flex justify-center flex-col lg:items-center p-5 min-h-screen mx-auto">
       <div className="flex justify-between mt-10 lg:mt-0 lg:items-center">
@@ -21,7 +24,10 @@ const HeroSection = () => {
           </p>
 
           <div className="flex gap-3 mt-10">
-            <button className="bg-black text-white py-2.5 px-5 w-32 font-bold rounded-md shadow-lg">
+            <button
+              onClick={() => router.push("/package")}
+              className="bg-black text-white py-2.5 px-5 w-32 font-bold rounded-md shadow-lg"
+            >
               Get Started
             </button>
             <button className="bg-blue-500 text-white py-2.5 px-5 w-32 font-bold rounded-md shadow-lg">

@@ -145,6 +145,7 @@ const BookingPage = () => {
     {
       title: "Name",
       dataIndex: "user",
+
       render: function (data: any) {
         return <span>{data?.name}</span>;
       },
@@ -152,6 +153,7 @@ const BookingPage = () => {
     {
       title: "Email",
       dataIndex: "user",
+
       render: function (data: any) {
         return <span>{data?.email}</span>;
       },
@@ -159,6 +161,7 @@ const BookingPage = () => {
     {
       title: "Phone",
       dataIndex: "user",
+
       render: function (data: any) {
         return <span>{data?.phone}</span>;
       },
@@ -166,6 +169,7 @@ const BookingPage = () => {
     {
       title: "Package Name",
       dataIndex: "package",
+
       render: function (data: any) {
         return <span className="capitalize">{data?.name}</span>;
       },
@@ -173,12 +177,14 @@ const BookingPage = () => {
     {
       title: "Price",
       dataIndex: "package",
+
       render: function (data: any) {
         return <span className="capitalize">{data?.price}</span>;
       },
     },
     {
       title: "Start Date",
+
       render: function (data: any) {
         return (
           data && (

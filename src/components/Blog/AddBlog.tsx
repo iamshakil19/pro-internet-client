@@ -14,7 +14,6 @@ const AddBlog = ({ setAddBlogModal }: any) => {
   const [createBlog] = useCreateBlogMutation();
   const [image, setImage] = useState("");
   const onSubmit = async (values: any) => {
-    console.log({ ...values, image });
 
     message.loading({
       key: "createBlog",

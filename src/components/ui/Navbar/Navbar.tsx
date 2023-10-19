@@ -26,7 +26,6 @@ const Navbar = ({
   const userLoggedIn = isLoggedIn();
   const { email } = getUserInfo() as any;
   const { booking } = useAppSelector((state) => state.bookings);
-  console.log(booking);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -53,17 +52,6 @@ const Navbar = ({
     <Layout className="layout">
       <div className="bg-white">
         <Header className="flex items-center border-b container mx-auto">
-          {/* {hasSider && (
-          <Button
-            type="primary"
-            className="lg:hidden"
-            onClick={() => {
-              dispatch(showSidebarDrawer());
-            }}
-          >
-            <MenuOutlined />
-          </Button>
-        )} */}
           <Content>
             <Link href="/">
               <p
@@ -148,6 +136,52 @@ const Navbar = ({
                   <Link href={item.href}>{item.label}</Link>
                 </Menu.Item>
               ))}
+              <span
+                onClick={() => router.push("/cart")}
+                className="mx-2 cursor-pointer"
+              >
+                <Badge count={booking?.length}>
+                  <ShoppingCartOutlined className="text-xl" />
+                </Badge>
+              </span>
+              {userLoggedIn ? (
+                <>
+                  <span className="mr-2">
+                    <Menu.Item>
+                      <Link href="/profile">Dashboard</Link>
+                    </Menu.Item>
+                  </span>
+                  {/* <span className="mr-2">
+                    <Menu.Item>
+                      <Link href="/profile" style={{color: "red"}}>Log Out</Link>
+                    </Menu.Item>
+                  </span> */}
+
+                  <Menu.Item>
+                    <Link
+                      onClick={() => {
+                        logOut();
+                      }}
+                      style={{ color: "red" }}
+                      href="/profile"
+                    >
+                      Log Out
+                    </Link>
+                  </Menu.Item>
+                </>
+              ) : (
+                <Menu.Item>
+                  <Link
+                    onClick={() => {
+                      router.push("/login");
+                    }}
+                    style={{ color: "blue" }}
+                    href="/login"
+                  >
+                    Login
+                  </Link>
+                </Menu.Item>
+              )}
             </Menu>
           </Drawer>
         </Header>
