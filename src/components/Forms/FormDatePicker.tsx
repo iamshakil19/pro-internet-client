@@ -1,6 +1,7 @@
 import { DatePicker, DatePickerProps, Input } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";
+import { getErrorMessageByPropertyName } from "@/utils/schema-validator";
 
 type UMDatePikerProps = {
   onChange?: (valOne: Dayjs | null, valTwo: string) => void;
@@ -8,6 +9,8 @@ type UMDatePikerProps = {
   label?: string;
   value?: Dayjs;
   size?: "large" | "small";
+  required?: boolean;
+  placeholder?: string;
 };
 
 const FormDatePicker = ({
@@ -15,8 +18,16 @@ const FormDatePicker = ({
   label,
   onChange,
   size = "large",
+  required,
+  placeholder,
 }: UMDatePikerProps) => {
-  const { control, setValue } = useFormContext();
+  const {
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
+
+  const errorMessage = getErrorMessageByPropertyName(errors, name);
 
   const handleOnChange: DatePickerProps["onChange"] = (date, dateString) => {
     onChange ? onChange(date, dateString) : null;
@@ -25,7 +36,10 @@ const FormDatePicker = ({
 
   return (
     <div>
-      {label ? label : null}
+      <div className="">
+        {required ? <span className="text-red-500 mr-1">*</span> : null}
+        {label ? label : null}
+      </div>
       <br />
       <Controller
         name={name}
@@ -36,9 +50,11 @@ const FormDatePicker = ({
             size={size}
             onChange={handleOnChange}
             style={{ width: "100%" }}
+            placeholder={placeholder}
           />
         )}
       />
+      <small style={{ color: "red" }}>{errorMessage}</small>
     </div>
   );
 };

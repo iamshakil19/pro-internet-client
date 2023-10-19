@@ -2,6 +2,8 @@
 
 import React from "react";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToCart } from "@/redux/slice/bookingSlice";
 
 const PackageCard = ({ pack }: any) => {
   const {
@@ -20,6 +22,10 @@ const PackageCard = ({ pack }: any) => {
     createdAt,
     updatedAt,
   } = pack || {};
+  const dispatch = useAppDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToCart(pack));
+  };
   return (
     <div className="w-full max-w-xs shadow-lg rounded-md mx-auto">
       <div className="bg-[#E6F1FF] p-5 rounded-md">
@@ -76,10 +82,10 @@ const PackageCard = ({ pack }: any) => {
         </div>
       </div>
       <div className="p-5">
-        <button className="w-full bg-blue-500 text-white font-semibold text-lg py-1 rounded-md shadow-lg">
-          Book Now
-        </button>
-        <button className="w-full bg-black text-white font-semibold text-lg py-1 rounded-md shadow-lg mt-3">
+        <button
+          onClick={handleAddToCart}
+          className="w-full bg-black text-white font-semibold text-lg py-1 rounded-md shadow-lg mt-3"
+        >
           Add To Cart
         </button>
       </div>

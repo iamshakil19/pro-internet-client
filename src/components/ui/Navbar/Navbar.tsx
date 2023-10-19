@@ -24,8 +24,10 @@ const Navbar = ({
   hasSider?: boolean;
 }) => {
   const userLoggedIn = isLoggedIn();
-  const {email} = getUserInfo() as any;
-  
+  const { email } = getUserInfo() as any;
+  const { booking } = useAppSelector((state) => state.bookings);
+  console.log(booking);
+
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -84,8 +86,11 @@ const Navbar = ({
                 <Link href={item.href}>{item.label}</Link>
               </Menu.Item>
             ))}
-            <span className="mx-2 cursor-pointer">
-              <Badge count={1}>
+            <span
+              onClick={() => router.push("/cart")}
+              className="mx-2 cursor-pointer"
+            >
+              <Badge count={booking?.length}>
                 <ShoppingCartOutlined className="text-xl" />
               </Badge>
             </span>
