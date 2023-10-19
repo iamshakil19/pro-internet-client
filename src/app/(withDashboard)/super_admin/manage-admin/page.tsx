@@ -212,7 +212,7 @@ const ManageAdmin = () => {
             >
               <EditOutlined />
             </Button>
-            <Button
+            {/* <Button
               onClick={() => {
                 setOpen(true);
                 setDeleteId(data?.id);
@@ -221,7 +221,7 @@ const ManageAdmin = () => {
               danger
             >
               <DeleteOutlined />
-            </Button>
+            </Button> */}
           </div>
         );
       },
@@ -302,14 +302,14 @@ const ManageAdmin = () => {
         onTableChange={onTableChange}
         showPagination={true}
       />
-      <PIModal
+      {/* <PIModal
         title="Delete Admin"
         isOpen={open}
         closeModal={() => setOpen(false)}
         handleOk={() => deleteHandler(deleteId)}
       >
         <p className="text-orange-500">Do you want to delete this admin ?</p>
-      </PIModal>
+      </PIModal> */}
 
       <PIModal
         showCancelButton={false}

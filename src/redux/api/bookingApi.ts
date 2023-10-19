@@ -16,7 +16,7 @@ export const bookingApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: [tagTypes.booking],
         }),
-
+        
         getAllBooking: builder.query({
             query: (arg: Record<string, any>) => {
                 return {
@@ -31,7 +31,7 @@ export const bookingApi = baseApi.injectEndpoints({
                     meta,
                 };
             },
-            providesTags: [tagTypes.package],
+            providesTags: [tagTypes.booking],
         }),
 
         getSingleBooking: builder.query({
@@ -48,7 +48,7 @@ export const bookingApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 data: data.body,
             }),
-            invalidatesTags: [tagTypes.package],
+            invalidatesTags: [tagTypes.booking],
         }),
 
         deleteBooking: builder.mutation({

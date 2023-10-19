@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";
 import { getErrorMessageByPropertyName } from "@/utils/schema-validator";
 
-type UMDatePikerProps = {
+type DatePikerProps = {
   onChange?: (valOne: Dayjs | null, valTwo: string) => void;
   name: string;
   label?: string;
@@ -20,7 +20,7 @@ const FormDatePicker = ({
   size = "large",
   required,
   placeholder,
-}: UMDatePikerProps) => {
+}: DatePikerProps) => {
   const {
     control,
     setValue,
