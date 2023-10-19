@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas/login";
 import Link from "next/link";
+import { useEffect } from "react";
 
 type FormValues = {
   email: string;
@@ -16,7 +17,7 @@ type FormValues = {
 };
 
 const LoginPage = () => {
-  const [login] = useLoginMutation();
+  const [login, { data, isSuccess, isError, error }] = useLoginMutation();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
@@ -25,17 +26,16 @@ const LoginPage = () => {
       if (res?.accessToken) {
         router.push("/profile");
         message.success("User logged in successfully!");
+        storeUserInfo({ accessToken: res?.accessToken });
       }
-      storeUserInfo({ accessToken: res?.accessToken });
+      console.log(res);
     } catch (err: any) {
       console.error(err.message);
     }
   };
 
   return (
-    <div
-      className="flex  min-h-[calc(100vh-64px)]"
-    >
+    <div className="flex  min-h-[calc(100vh-64px)]">
       <div className="bg-blue-500 flex-1 items-center hidden lg:flex justify-center">
         <p className="text-5xl font-bold text-white">Pro Internet</p>
       </div>
