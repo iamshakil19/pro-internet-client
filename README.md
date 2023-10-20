@@ -2,6 +2,10 @@
 
 [Live Link](https://pro-internet.vercel.app/).
 
+Super Admin
+superadmin@gmail.com
+111111
+
 ### This is a internet service provider application
 
 ### In this project has 3 role base authentication
