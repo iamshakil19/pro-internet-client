@@ -26,5 +26,8 @@ export const isLoggedIn = () => {
 };
 
 export const removeUserInfo = (key: string) => {
+  if (typeof window === 'undefined') {
+    return null
+  }
   return localStorage.removeItem(key);
 };

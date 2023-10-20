@@ -1,20 +1,9 @@
-"use client";
+"use client"
 
-import { Row } from "antd";
+import ErrorComponent from "@/components/error/errror";
 
 const ErrorPage = () => {
-  return (
-    <Row
-      justify="center"
-      align="middle"
-      style={{
-        height: "100vh",
-        color: "red",
-      }}
-    >
-      <h1>Something Went Wrong!</h1>
-    </Row>
-  );
+  return <ErrorComponent />;
 };
 
 export default ErrorPage;

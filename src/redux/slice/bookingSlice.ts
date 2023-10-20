@@ -28,7 +28,9 @@ export const bookingSlice = createSlice({
                     key: "booking",
                     content: `Added to cart`,
                 });
-                localStorage.setItem("booking", JSON.stringify(state.booking));
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem("booking", JSON.stringify(state.booking));
+                  }
             }
         },
         removeFromCart: (state, action) => {
@@ -36,7 +38,9 @@ export const bookingSlice = createSlice({
                 (cartItem: any) => cartItem.id !== action.payload.id
             );
             state.booking = nextCart;
-            localStorage.setItem("booking", JSON.stringify(state.booking))
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("booking", JSON.stringify(state.booking))
+              }
             message.success({
                 key: "booking",
                 content: `Package Removed`,
@@ -48,7 +52,9 @@ export const bookingSlice = createSlice({
                 key: "booking",
                 content: `Cart Cleared`,
             });
-            localStorage.setItem("booking", JSON.stringify(state.booking));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem("booking", JSON.stringify(state.booking));
+              }
         },
     },
 })
