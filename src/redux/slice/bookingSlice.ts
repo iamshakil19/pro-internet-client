@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { message } from 'antd';
 
-const bookingFromLocalStorage = localStorage.getItem("booking");
+const bookingFromLocalStorage = typeof window !== 'undefined' && localStorage.getItem("booking");
 const parsedBooking = bookingFromLocalStorage ? JSON.parse(bookingFromLocalStorage) : null;
 
 const initialState = {
@@ -30,7 +30,7 @@ export const bookingSlice = createSlice({
                 });
                 if (typeof window !== 'undefined') {
                     localStorage.setItem("booking", JSON.stringify(state.booking));
-                  }
+                }
             }
         },
         removeFromCart: (state, action) => {
@@ -40,7 +40,7 @@ export const bookingSlice = createSlice({
             state.booking = nextCart;
             if (typeof window !== 'undefined') {
                 localStorage.setItem("booking", JSON.stringify(state.booking))
-              }
+            }
             message.success({
                 key: "booking",
                 content: `Package Removed`,
@@ -54,7 +54,7 @@ export const bookingSlice = createSlice({
             });
             if (typeof window !== 'undefined') {
                 localStorage.setItem("booking", JSON.stringify(state.booking));
-              }
+            }
         },
     },
 })

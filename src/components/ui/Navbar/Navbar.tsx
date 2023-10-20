@@ -50,8 +50,8 @@ const Navbar = ({
 
   return (
     <Layout className="layout">
-      <div className="bg-white">
-        <Header className="flex items-center border-b container mx-auto">
+      <div className="">
+        <Header className="flex items-center border-b mx-auto">
           <Content>
             <Link href="/">
               <p
@@ -67,6 +67,7 @@ const Navbar = ({
             className="lg:block hidden"
             disabledOverflow
             mode="horizontal"
+            theme="dark"
             selectedKeys={[pathname]}
           >
             {items?.map((item) => (
@@ -90,24 +91,25 @@ const Navbar = ({
                     <Link href="/profile">Dashboard</Link>
                   </Menu.Item>
                 </span>
-                <button
+
+                <Menu.Item
+                  style={{ color: "red" }}
                   onClick={() => {
                     logOut();
                   }}
-                  className="bg-red-500 px-4 text-white rounded-md font-semibold"
                 >
                   Log Out
-                </button>
+                </Menu.Item>
               </>
             ) : (
-              <button
+              <Menu.Item
+                style={{ color: "blue" }}
                 onClick={() => {
                   router.push("/login");
                 }}
-                className="bg-blue-500 px-4 text-white rounded-md font-semibold ml-3"
               >
                 Login
-              </button>
+              </Menu.Item>
             )}
           </Menu>
 

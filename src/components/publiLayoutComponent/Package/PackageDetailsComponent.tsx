@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useGetAllBookingQuery } from "@/redux/api/bookingApi";
 const { TextArea } = Input;
 
-const PackageDetailsComponent = ({params}: any) => {
+const PackageDetailsComponent = ({ params }: any) => {
   const userLoggedIn = isLoggedIn();
   const router = useRouter();
   const { data } = useGetSinglePackageQuery(params?.id);
@@ -21,7 +21,7 @@ const PackageDetailsComponent = ({params}: any) => {
   const {
     id,
     name,
-    desc: description,
+    desc,
     cpu,
     category,
     bandwidth,
@@ -33,7 +33,7 @@ const PackageDetailsComponent = ({params}: any) => {
     process,
   } = data || {};
   const [rating, setRating] = useState(3);
-  const [desc, setDesc] = useState("");
+  const [description, setDesc] = useState("");
 
   const onSubmit = async () => {
     if (!userLoggedIn) {
@@ -51,7 +51,7 @@ const PackageDetailsComponent = ({params}: any) => {
     try {
       const res = await createRating({
         rate: rating,
-        desc: desc,
+        desc: description,
         packageId: id,
       });
       if (res) {
@@ -95,11 +95,11 @@ const PackageDetailsComponent = ({params}: any) => {
             <span className="text-lg font-semibold capitalize">{storage}</span>
           </p>
           <p className="mb-1">
-            Storage :{" "}
+            Website :{" "}
             <span className="text-lg font-semibold capitalize">{website}</span>
           </p>
           <p className="mb-1">
-            Storage :{" "}
+            Description :{" "}
             <span className="text-lg font-semibold capitalize">{desc}</span>
           </p>
         </div>
@@ -115,11 +115,11 @@ const PackageDetailsComponent = ({params}: any) => {
             </span>
           </p>
           <p className="mb-1">
-            Bandwidth :{" "}
+            Process :{" "}
             <span className="text-lg font-semibold capitalize">{process}</span>
           </p>
           <p className="mb-1">
-            Bandwidth :{" "}
+            Physical Memory :{" "}
             <span className="text-lg font-semibold capitalize">
               {physicalMemory}
             </span>
@@ -144,7 +144,7 @@ const PackageDetailsComponent = ({params}: any) => {
               rows={4}
               placeholder="Write your comment"
               allowClear
-              value={desc}
+              value={description}
               onChange={(e) => setDesc(e.target.value)}
               style={{ border: "1px solid gray" }}
             />
